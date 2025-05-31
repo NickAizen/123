@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 20 14% 4%; 
+    --foreground: 20 14% 96%; 
+    
+    --card: 20 14% 7%; 
+    --card-foreground: 20 14% 96%;
+    
+    --popover: 20 14% 7%;
+    --popover-foreground: 20 14% 96%;
+    
+    --primary: 24 94% 50%; 
+    --primary-foreground: 20 14% 98%;
+    
+    --secondary: 20 10% 25%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 20 10% 15%;
+    --muted-foreground: 20 10% 65%;
+    
+    --accent: 24 80% 15%;
+    --accent-foreground: 24 80% 90%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 24 94% 55%;
+    
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 20 14% 4%;
+    --foreground: 20 14% 96%;
+    
+    --card: 20 14% 7%;
+    --card-foreground: 20 14% 96%;
+    
+    --popover: 20 14% 7%;
+    --popover-foreground: 20 14% 96%;
+    
+    --primary: 24 94% 50%;
+    --primary-foreground: 20 14% 98%;
+    
+    --secondary: 20 10% 25%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 20 10% 15%;
+    --muted-foreground: 20 10% 65%;
+    
+    --accent: 24 80% 15%;
+    --accent-foreground: 24 80% 90%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 24 94% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-orange-600 via-orange-500 to-amber-700;
+  }
+
+  .dark-bg {
+    @apply bg-background;
+  }
+  
+  .gradient-border {
+    position: relative;
+  }
+  
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(to right, theme('colors.orange.500'), theme('colors.amber.700'));
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glassmorphism {
+    @apply bg-card/10 backdrop-blur-lg border border-white/10;
+  }
+
+  .glassmorphism-hover {
+    @apply hover:bg-orange-500/10 hover:border-orange-500/30 transition-all duration-300;
+  }
+}
+
+html {
+  @apply dark;
+  background-color: hsl(var(--background)); 
+}
+
+.interactive-neon-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1; 
+}
+
+.interactive-neon-glow::before {
+  content: '';
+  position: absolute;
+  width: 200px; 
+  height: 200px;
+  background: radial-gradient(circle, theme('colors.orange.500') 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(50px);
+  transition: opacity 0.3s ease-out, transform 0.1s ease-out; 
+  will-change: transform, opacity;
+  transform: translate(-50%, -50%) scale(0.5); 
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-neon-glow.active::before {
+    opacity: 0.3; 
+    transform: translate(var(--mouse-x, -50%), var(--mouse-y, -50%)) scale(1);
+  }
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .interactive-neon-glow::before {
+    opacity: 0.15;
+    animation: mobileNeonPulse 10s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes mobileNeonPulse {
+  0% {
+    transform: translate(20%, 30%) scale(0.8) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translate(80%, 70%) scale(1.2) rotate(45deg);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(50%, 20%) scale(0.9) rotate(-30deg);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translate(10%, 90%) scale(1.1) rotate(60deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(70%, 40%) scale(1) rotate(15deg);
+    opacity: 0.2;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% {
+    filter: drop-shadow(0 0 3px theme('colors.orange.500')) opacity(0.7);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px theme('colors.orange.400')) opacity(1);
+  }
+}
+
+/* For TypeAnimation specifically if you want the blinking cursor part to also be orange */
+.gradient-text .type-cursor {
+  background: linear-gradient(to right, theme('colors.orange.400'), theme('colors.amber.600'));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
