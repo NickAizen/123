@@ -113,7 +113,7 @@ const CustomPackageBuilder = () => {
     message += `\n*Total Estimado: R$ ${totalPrice.toFixed(2)}*\n`;
     message += "\nAguardo o contato para finalizarmos os detalhes.";
 
-    const whatsappUrl = `https://wa.me/5592985531572?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/5592981786614?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
     
     toast({
